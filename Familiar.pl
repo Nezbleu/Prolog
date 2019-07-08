@@ -18,8 +18,14 @@ progenitor(guilo,kevin).
 progenitor(sonia,kevin).
 progenitor(yaquelin,gabriela).
 
-familiar(X,Y):-progenitor(X,Y);(progenitor(X,Z),progenitor(Z,Y));(progenitor(X,A),progenitor(A,P),progenitor(P,Y)).
-hermano(X,Y):-progenitor(P,X),progenitor(P,Y).
-casado(X,Y):-progenitor(X,H),progenitor(Y,H).
-esFeliz(X,Y):-casado(X,Y).
+familiarde(X,Y):-padrede(X,Y);abuelode(X,Y);bisabuelode(X,Y);hermanode(X,Y);primode(X,Y);sobrinode(X,Y).
+padrede(X,Y):-progenitor(X,Y).
+abuelode(X,Y):-(progenitor(X,Z),progenitor(Z,Y)).
+bisabuelode(X,Y):-progenitor(X,A),progenitor(A,P),progenitor(P,Y).
+hermanode(X,Y):-progenitor(P,X),progenitor(P,Y).
+primode(X,Y):-progenitor(P,X),progenitor(T,Y),hermanode(P,T).
+sobrinode(X,Y):-progenitor(P,X),hermanode(P,Y).
+estacasadocon(X,Y):-progenitor(X,H),progenitor(Y,H).
+esFeliz(X,Y):-estacasadocon(X,Y).
+
 
